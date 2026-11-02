@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ShelfClear — PayPal approval done</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main style="max-width:600px">
+  <h1>Payment approved in PayPal</h1>
+  <p class="sub">You approved the order in the PayPal sandbox. Go back to ShelfClear
+  and click “Capture payment” to finish the sale and recover the cash.</p>
+  <p><a href="/">← Back to ShelfClear</a></p>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const deal = params.get("deal");
+    if (deal) {
+      document.querySelector("a").href = "/?deal=" + deal;
+    }
+  </script>
+</main>
+</body>
+</html>

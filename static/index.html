@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShelfClear — Turn Dead Stock Into Cash</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">🧹 ShelfClear</div>
+  <div class="tagline">AI agent that turns dead stock into cash</div>
+  <div id="mode-banner" class="mode-banner">Checking PayPal mode…</div>
+</header>
+
+<nav>
+  <button data-view="dashboard" class="active">Dashboard</button>
+  <button data-view="inventory">Inventory</button>
+  <button data-view="storefront">Storefront</button>
+  <button data-view="deals">Deals</button>
+</nav>
+
+<main>
+  <!-- DASHBOARD -->
+  <section id="view-dashboard" class="view active">
+    <h1>Cash stuck on your shelves</h1>
+    <p class="sub">ShelfClear finds your dead stock, prices it with AI, negotiates with buyers
+    and closes the sale through PayPal. Money that was stuck becomes money back.</p>
+    <div class="cards">
+      <div class="card big"><span class="label">Cash stuck in dead stock</span><span class="value" id="stat-stuck">$0.00</span></div>
+      <div class="card big good"><span class="label">Cash recovered</span><span class="value" id="stat-recovered">$0.00</span></div>
+      <div class="card"><span class="label">Items listed</span><span class="value" id="stat-listed">0</span></div>
+      <div class="card"><span class="label">Items sold</span><span class="value" id="stat-sold">0</span></div>
+      <div class="card"><span class="label">Active negotiations</span><span class="value" id="stat-deals">0</span></div>
+    </div>
+    <div class="meter-wrap">
+      <div class="meter-label"><span>Recovery progress</span><span id="recovery-pct">0%</span></div>
+      <div class="meter"><div id="recovery-bar" class="meter-fill" style="width:0%"></div></div>
+    </div>
+    <h2>Recent deals</h2>
+    <div id="recent-deals" class="deal-list">Loading…</div>
+  </section>
+
+  <!-- INVENTORY -->
+  <section id="view-inventory" class="view">
+    <h1>Inventory</h1>
+    <p class="sub">Add a dead-stock item. The AI prices it instantly — it never goes below your floor price.</p>
+    <form id="add-form" class="form">
+      <input name="name" placeholder="Item name" required>
+      <select name="category">
+        <option>Electronics</option><option>Accessories</option><option>Footwear</option>
+        <option>Fashion</option><option>Home</option><option>Beauty</option><option>Toys</option>
+      </select>
+      <input name="original_price" type="number" step="0.01" min="0.01" placeholder="Original price ($)" required>
+      <input name="cost_price" type="number" step="0.01" min="0" placeholder="Your cost ($)" required>
+      <input name="floor_price" type="number" step="0.01" min="0.01" placeholder="Lowest price you'll accept ($)" required>
+      <input name="qty" type="number" min="1" placeholder="Qty stuck" required>
+      <input name="days_unsold" type="number" min="0" placeholder="Days unsold" required>
+      <button type="submit">Add item &amp; price with AI</button>
+    </form>
+    <div id="form-error" class="error"></div>
+    <table>
+      <thead><tr><th>Item</th><th>Original</th><th>AI clearance price</th><th>Dead score</th><th>Why this price</th><th>Status</th><th></th></tr></thead>
+      <tbody id="items-body"></tbody>
+    </table>
+  </section>
+
+  <!-- STOREFRONT -->
+  <section id="view-storefront" class="view">
+    <h1>Clearance Storefront</h1>
+    <p class="sub">This is what buyers see. Every price was set by the AI. Click a deal to negotiate with the agent.</p>
+    <div id="store-grid" class="grid"></div>
+  </section>
+
+  <!-- DEALS -->
+  <section id="view-deals" class="view">
+    <h1>Deals</h1>
+    <p class="sub">Negotiations in progress. The agent accepts, counters or walks away — it never goes below the seller's floor.</p>
+    <div id="deals-list" class="deal-list">Loading…</div>
+  </section>
+
+  <!-- DEAL CHAT -->
+  <section id="view-deal" class="view">
+    <button id="back-to-deals" class="link-btn">← Back to deals</button>
+    <h1 id="deal-title">Deal</h1>
+    <div id="deal-status" class="deal-status"></div>
+    <div id="chat" class="chat"></div>
+    <div id="offer-box" class="offer-box">
+      <input id="offer-input" type="number" step="0.01" min="0.01" placeholder="Your offer in $">
+      <button id="offer-btn">Make offer</button>
+    </div>
+    <div id="pay-box" class="pay-box hidden">
+      <p id="pay-info"></p>
+      <button id="pay-create-btn">Create PayPal order</button>
+      <button id="pay-approve-btn" class="hidden">Approve in PayPal</button>
+      <button id="pay-capture-btn" class="hidden">Capture payment</button>
+      <p id="pay-status" class="pay-status"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  ShelfClear — built for the PayPal AI Hackathon. PayPal integration runs in
+  <span id="footer-mode">…</span>. No real money moves in the sandbox or simulator.
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
