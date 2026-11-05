@@ -26,8 +26,13 @@
     <h1>Cash stuck on your shelves</h1>
     <p class="sub">ShelfClear finds your dead stock, prices it with AI, negotiates with buyers
     and closes the sale through PayPal. Money that was stuck becomes money back.</p>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><b>AI prices it</b><span>Dead-stock score 0–100, clearance price set — never below your floor.</span></div>
+      <div class="step"><span class="num teal">2</span><b>Agent negotiates</b><span>Accepts, counters or walks away — on its own, within your rules.</span></div>
+      <div class="step"><span class="num gold">3</span><b>PayPal closes it</b><span>Real PayPal order → buyer approval → payment captured.</span></div>
+    </div>
     <div class="cards">
-      <div class="card big"><span class="label">Cash stuck in dead stock</span><span class="value" id="stat-stuck">$0.00</span></div>
+      <div class="card big stuck"><span class="label">Cash stuck in dead stock</span><span class="value" id="stat-stuck">$0.00</span></div>
       <div class="card big good"><span class="label">Cash recovered</span><span class="value" id="stat-recovered">$0.00</span></div>
       <div class="card"><span class="label">Items listed</span><span class="value" id="stat-listed">0</span></div>
       <div class="card"><span class="label">Items sold</span><span class="value" id="stat-sold">0</span></div>
@@ -91,9 +96,9 @@
     </div>
     <div id="pay-box" class="pay-box hidden">
       <p id="pay-info"></p>
-      <button id="pay-create-btn">Create PayPal order</button>
-      <button id="pay-approve-btn" class="hidden">Approve in PayPal</button>
-      <button id="pay-capture-btn" class="hidden">Capture payment</button>
+      <button id="pay-create-btn" class="paypal-btn">Create PayPal order</button>
+      <button id="pay-approve-btn" class="hidden paypal-btn">Approve in PayPal</button>
+      <button id="pay-capture-btn" class="hidden paypal-btn">Capture payment</button>
       <p id="pay-status" class="pay-status"></p>
     </div>
   </section>
