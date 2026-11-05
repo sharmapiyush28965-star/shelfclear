@@ -63,6 +63,10 @@ class PayPalClient:
         self.mode = mode or active_mode()
         self.client_id = os.environ.get("PAYPAL_CLIENT_ID", "")
         self.client_secret = os.environ.get("PAYPAL_CLIENT_SECRET", "")
+        # Order currency: USD by default. The sandbox seller account used
+        # for testing accepts only INR, so PAYPAL_CURRENCY=INR lets the
+        # real sandbox loop run against that account.
+        self.currency = os.environ.get("PAYPAL_CURRENCY", "USD").upper()
         self._token = None
 
     # ---- public API (identical in both modes) ----
@@ -81,7 +85,7 @@ class PayPalClient:
                 {
                     "reference_id": "shelfclear-deal",
                     "description": description,
-                    "amount": {"currency_code": "USD", "value": amount_str},
+                    "amount": {"currency_code": self.currency, "value": amount_str},
                 }
             ],
             "links": [
@@ -212,7 +216,7 @@ class PayPalClient:
                 {
                     "reference_id": "shelfclear-deal",
                     "description": description[:120],
-                    "amount": {"currency_code": "USD", "value": amount_str},
+                    "amount": {"currency_code": self.currency, "value": amount_str},
                 }
             ],
             "payment_source": {
